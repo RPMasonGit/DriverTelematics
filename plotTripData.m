@@ -15,6 +15,10 @@ function [position,speed,mag_acceleration] = plotTripData(driver,trip,span1,span
 %want_plot =1 selects that you want the function to output
 %figures of position, speed and acceleration.
 
+%still need to clean the data to get rid of outliers, for example see
+% M = plotTripData(1,200,5,5,1) has a huge spike in velocity that doesn't
+% make sense physically
+
 position = loadTrip(driver,trip);
 
 %calculate speed in m/s
