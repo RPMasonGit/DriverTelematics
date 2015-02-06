@@ -1,4 +1,4 @@
-function [position,speed,mag_acceleration] = plotTripData(driver,trip,span1,span2,want_plot,threshold)
+function [position,speed,mag_acceleration] = plotTripData(driver,trip,span1,span2,want_plot)
 
 %a function to plot the position, velocity and acceleration
 %of a particular driver during a particular trip
