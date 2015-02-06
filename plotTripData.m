@@ -1,4 +1,4 @@
-function [position,speed,mag_acceleration] = plotTripData(driver,trip,span1,span2,want_plot)
+function [position,speed,mag_acceleration] = plotTripData(driver,trip,span1,span2,want_plot,threshold)
 
 %a function to plot the position, velocity and acceleration
 %of a particular driver during a particular trip
@@ -17,14 +17,20 @@ function [position,speed,mag_acceleration] = plotTripData(driver,trip,span1,span
 
 %still need to clean the data to get rid of outliers, for example see
 % M = plotTripData(1,200,5,5,1) has a huge spike in velocity that doesn't
-% make sense physically
+% make sense physically - just a sensor blip
 
 position = loadTrip(driver,trip);
 
 %calculate speed in m/s
 %assuming constant speed during each second
 
-velocity = diff(position);
+velocity = [position(2:end,:);0,0]-[position(1:end-1,:);0,0];
+
+%if the velocity is over the threshold of 50 m/s which is 111 mph I will
+%linearly interpolate the velocity between the start and end points of the
+%blip
+
+%velocity = diff(position);
 speed = sqrt(sum(velocity.*velocity,2));
 speed = smooth(speed,span1);
 
